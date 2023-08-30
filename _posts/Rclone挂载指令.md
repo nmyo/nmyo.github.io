@@ -1,0 +1,64 @@
+[TOC]
+
+### 安装/升级
+
+ `curl https://rclone.org/install.sh | sudo bash`
+
+### 挂载
+
+`mkdir -p /bt
+/usr/bin/rclone mount bt: /bt \
+ --umask 0000 \
+ --default-permissions \
+ --allow-non-empty \
+ --allow-other \
+ --buffer-size 32M \
+ --dir-cache-time 6h \
+ --vfs-cache-mode full \
+ --vfs-read-chunk-size 64M \
+ --vfs-read-chunk-size-limit 1G &`
+    
+
+### 提示fuse报错
+
+`apt-get install fuse -y`
+
+### 自动挂载
+
+`cat > /etc/systemd/system/rclone.service <<EOF
+[Unit]
+Description=Rclone
+AssertPathIsDirectory=LocalFolder
+After=network-online.target
+[Service]
+Type=simple
+ExecStart=/usr/bin/rclone mount bt: /bt \
+ --umask 0000 \
+ --default-permissions \
+ --allow-non-empty \
+ --allow-other \
+ --buffer-size 32M \
+ --dir-cache-time 6h \
+ --vfs-cache-mode full \
+ --vfs-read-chunk-size 64M \
+ --vfs-read-chunk-size-limit 1G
+ExecStop=/bin/fusermount -u LocalFolder
+Restart=on-abort
+User=root
+[Install]
+WantedBy=default.target
+EOF`
+
+### 启动
+
+`systemctl start rclone`
+
+### 开机自启
+
+`systemctl enable rclone`
+
+
+
+### swap
+
+`wget https://www.moerats.com/usr/shell/swap.sh && bash swap.sh`
