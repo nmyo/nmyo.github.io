@@ -1,3 +1,11 @@
+---
+title: SSH服务报错
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: SSH服务报错
+---
+
 **启动SSH服务时，提示如下错误。**
 
 ```shell
