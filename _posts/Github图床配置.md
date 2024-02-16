@@ -1,3 +1,11 @@
+---
+title: Github图床
+date: 2024-2-16
+categories: Github
+tags: 图床
+description: Github图床
+---
+
 ### 创建仓库
 1. 打开Github,点击头像选择`New repository`创建一个新的仓库
 2. 填写仓库先关资料，一般只需要选一个合适的仓库名，然后确保仓库为 `public`
