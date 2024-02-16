@@ -1,0 +1,42 @@
+```bash
+#查看系统版本，推荐Debian11及以上
+cat /etc/issue
+```
+
+### 添加backports源
+
+```bash
+echo "deb http://deb.debian.org/debian bullseye-backports main" > /etc/apt/sources.list.d/backports.list
+#这里的bullseye根据你的Debian版本修改，这里的版本代号需要小写
+```
+
+### 查看可安装内核
+
+```bash
+apt search linux-image
+```
+
+### 安装内核及头文件
+
+```bash
+apt update
+apt -t bullseye-backports install linux-image-amd64 -y
+apt -t bullseye-backports install linux-image-cloud-amd64 -y
+apt -t bullseye-backports install linux-headers-amd64 -y
+apt -t bullseye-backports install linux-headers-cloud-amd64 -y
+update-grub
+```
+
+### 重启&查看内核版本
+
+```bash
+sudo reboot
+uname -r
+```
+
+### 如果使用中的内核缺少头文件，使用以下命令安装
+
+```bash
+apt install linux-headers-$(uname -r)
+```
+

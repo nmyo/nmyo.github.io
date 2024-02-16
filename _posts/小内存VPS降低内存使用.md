@@ -1,0 +1,27 @@
+**小内存vps，降低内存占用量的方法：**
+
+**1：首先选择 Debian 系统，然后更换 cloud 内核，cloud内核是给KVM专用的内核，不适用ovz虚拟机或桌面机，内核不必求新。**
+
+**2：开启 swap 交换区，不必很大，调成和内存差不多大就好了。**
+
+**3：设置 sysctl.conf vm 选项：**
+
+**当内存使用率不足10%（默认值60%）时使用 swap，尽量避免使用 swap，减少唤醒软中断进程**
+**`vm.swappiness=10`**
+
+**将选择多少数据缓存 inode 和 dentry 信息,默认100可取值50**
+**`vm.vfs_cache_pressure=50`**
+
+**4：适当降低 php 内存限制，默认128M。**
+
+**5：撤销安全补丁，比如 Intel CPU 的一些安全漏洞，提升cpu性能，降低内存占用**
+**`vi /etc/default/grub`**
+**内核5.2或以上修改下面内容：**
+**`GRUB_CMDLINE_LINUX_DEFAULT="quiet splash mitigations=off"`**
+**内核5.2以下修改成下面内容：**
+**`GRUB_CMDLINE_LINUX_DEFAULT="quiet splash noibrs noibpb nopti nospectre_v2 nospectre_v1 l1tf=off nospec_store_bypass_disable no_stf_barrier mds=off tsx=on tsx_async_abort=off mitigations=off"`**
+**最后：**
+**`update-grub`**
+
+**6：去掉一些没必要内核模块加载 (xfs 等)**
+**`chmod -x /etc/grub.d/30_os-prober`**

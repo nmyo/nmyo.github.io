@@ -1,0 +1,21 @@
+修改 DNS 启用 NAT64 服务
+
+```bash
+cp /etc/resolv.conf /etc/resolv.conf.nat64.bak # 备份原有配置文件 
+echo nameserver 2a01:4f8:c2c:123f::1 | tee /etc/resolv.conf # 覆盖为新的 DNS
+```
+
+DNS 设置持久化：LXC 容器 DNS 修改可能会在重启后被覆盖。如果你希望你的修改永久生效，请使用以下命令: 
+
+`touch /etc/.pve-ignore.resolv.conf`
+
+恢复原有 DNS 设置
+
+```bash
+# 需要有上一步的备份文件才能还原为原有状态 
+yes | cp -rf /etc/resolv.conf.nat64.bak /etc/resolv.conf 
+# 这一步为可选，为避免影响可能存在的解锁服务，请自行决定是否修改。 
+# 如果没有备份也可以设置为免费的公共 DNS，如： 
+# echo nameserver 2620:fe::fe | tee /etc/resolv.conf
+```
+

@@ -1,0 +1,45 @@
+```bash
+#导入key
+rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
+```
+```bash
+#添加源
+#CentOS 8
+yum install https://www.elrepo.org/elrepo-release-8.el8.elrepo.noarch.rpm
+#CentOS 7
+yum install https://www.elrepo.org/elrepo-release-7.el7.elrepo.noarch.rpm
+#CentOS 6
+yum install https://www.elrepo.org/elrepo-release-6.el6.elrepo.noarch.rpm
+```
+```bash
+#安装内核
+yum --enablerepo=elrepo-kernel -y install kernel-ml
+```
+```bash
+#卸载原版内核headers
+yum remove -y kernel-headers
+```
+```bash
+#安装新内核headers
+yum --enablerepo=elrepo-kernel -y install kernel-ml-headers
+```
+```bash
+#安装内核devel
+yum --enablerepo=elrepo-kernel -y install kernel-ml-devel
+```
+```bash
+#更新引导
+#CentOS 7/8
+grub2-set-default 0
+#CentOS 6
+sed -i 's/^default=.*/default=0/g' /boot/grub/grub.conf
+```
+```bash
+#重启应用新内核
+reboot
+```
+```bash
+#卸载多余内核
+yum remove $(rpm -qa | grep kernel | grep -v $(uname -r))
+```
+

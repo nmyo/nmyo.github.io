@@ -1,0 +1,80 @@
+**目前仅支持X86架构的CPU**
+
+**目前仅支持Debian/Ubuntu**
+
+**使用方法：**
+
+**Debian/Ubuntu安装下载工具：**
+
+```bash
+apt update -y  && apt install -y curl
+```
+
+**CentOS安装下载工具:**
+
+```bash
+yum update && yum install curl
+```
+
+**1. 安装系统组件：**
+
+```bash
+apt update -y && apt install -y wget gnupg
+```
+
+**2. 注册PGP密钥：**
+
+```bash
+wget -qO - https://dl.xanmod.org/archive.key | gpg --dearmor -o /usr/share/keyrings/xanmod-archive-keyring.gpg --yes
+```
+
+**3. 添加存储库：**
+
+```bash
+echo 'deb [signed-by=/usr/share/keyrings/xanmod-archive-keyring.gpg] http://deb.xanmod.org releases main' | tee /etc/apt/sources.list.d/xanmod-release.list
+```
+
+**查看一下有没有存储库内容信息：Ctrl+X退出**
+
+```bash
+vim /etc/apt/sources.list.d/xanmod-release.list
+```
+
+**4. 然后更新并安装linux内核：**
+
+```bash
+apt update -y && apt install -y linux-xanmod-x64v3
+```
+
+**5. 开启BBR3：全部复制粘贴回车**
+
+```bash
+cat > /etc/sysctl.conf << EOF
+net.core.default_qdisc=fq_pie
+net.ipv4.tcp_congestion_control=bbr
+EOF
+```
+
+**生效并启用bbr：显示一些两行信息说明已经启动成功**
+
+```bash
+sysctl -p
+```
+
+**6. 重启系统：**
+
+```bash
+reboot
+```
+
+**7. 查看BBR3状态：**
+
+```bash
+modinfo tcp_bbr
+```
+
+**如果提示modinfo: ERROR: Module tcp_bbr not found.错误请执行以下命令再查看BBR3状态**
+
+```bash
+sudo depmod
+```

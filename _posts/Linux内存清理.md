@@ -1,0 +1,239 @@
+### 清理 journal 日志
+
+一般可以清理 2~3 GB
+
+- 查看 journal 日志占用的硬盘空间：
+
+  ```bash
+  journalctl -x --disk-usage
+  ```
+
+- 一次性清理 journal 日志：
+
+  ```bash
+  journalctl --vacuum-size=10M  # 清理日志到只剩下 10M
+  journalctl --vacuum-time=1d   # 清理一天前的日志
+  ```
+
+注意
+
+这两个操作只是一次性清除日志，**并不能限制以后的日志文件不会超过这个大小**。很多博客里说这两个操作可以限制日志文件的大小，属实是误导人
+
+如果需要永久限制日志文件的大小，需要修改 `/etc/systemd/journald.conf` 文件
+
+- 永久限制 journal 日志的大小：
+
+  **journald.conf**
+
+  ```json
+  [Journal]
+  SystemMaxUse=10M   # 硬盘中只保留最近 10M 的日志
+  RuntimeMaxUse=10M  # 内存中只保留最近 10M 的日志
+  ```
+
+- 不保留日志
+
+  **journald.conf**
+
+  ```json
+  [Journal]
+  Storage=none       # 丢弃所有的日志，不保存到内存或磁盘
+  ```
+
+危险
+
+不要使用 `rm` 命令来删除 journal 日志。参考 [删除日志释放空间最好不要用rm](https://www.cnblogs.com/pennychen/p/8681119.html)
+
+### 清理 apt-get 缓存
+
+一般可以清理数百 MB。
+
+```bash
+apt-get clean
+```
+
+### 清理 pip 缓存
+
+一般可以清理两三百 MB。
+
+```bash
+rm -r ~/.cache/pip
+```
+
+### 清理旧版本 snap 包
+
+一般每个旧的 snap 包可以清理 100 MB。
+
+- 列出所有的 snap 包：
+
+  ```bash
+  snap list --all
+  ```
+
+  可以见到很多标记为 `disabled` 的 snap 包，这些包是可以直接卸载的。
+
+  ```
+  Name     Version    Rev    Tracking       Publisher     Notes
+  certbot  1.26.0     1952   latest/stable  certbot-eff✓  classic
+  cmake    3.23.0     1070   latest/stable  crascit✓      disabled,classic
+  cmake    3.23.1     1082   latest/stable  crascit✓      classic
+  core     16-2.55.2  12941  latest/stable  canonical✓    core,disabled
+  core     16-2.54.4  12834  latest/stable  canonical✓    core
+  core18   20220309   2344   latest/stable  canonical✓    base
+  core20   20220318   1405   latest/stable  canonical✓    base
+  ```
+
+- 删除这些重复的 snap 包：
+
+  ```bash
+  snap remove XXXX --revision YYYY   # XXXX 是软件的 name，YYYY 是软件的 Rev
+  ```
+
+- 也可以使用这个脚本清除：
+
+  来自 [How to Clean Up Snap Package Versions in Linux](https://itsfoss.com/clean-snap-packages/)
+
+  ```
+  #!/bin/bash
+  # Removes old revisions of snaps
+  # CLOSE ALL SNAPS BEFORE RUNNING THIS
+  set -eu
+  snap list --all | awk '/disabled/{print $1, $3}' |
+      while read snapname revision; do
+          snap remove "$snapname" --revision="$revision"
+      done
+  ```
+
+### 清理登录日志
+
+这个文件是记录错误登录的日志，如果有人每天试你的密码来暴力破解你的 ssh，那你的这个文件就会很大。
+
+```bash
+echo "" > /var/log/btmp
+```
+
+该文件同理
+
+```bash
+echo "" > /var/log/auth.log
+```
+
+同理，不应当使用 `rm` 而是使用 `echo` 来清空这两个日志。
+
+### 清理 docker
+
+- 查看空间占用情况
+
+  ```bash
+  docker system df
+  ```
+
+  ```
+  TYPE            TOTAL     ACTIVE    SIZE      RECLAIMABLE
+  Images          5         1         645.4MB   611.9MB (94%)
+  Containers      1         1         0B        0B
+  Local Volumes   1         1         69.54kB   0B (0%)
+  Build Cache     0         0         0B        0B
+  ```
+
+- 清理 Build Cache
+
+  ```bash
+  docker system prune --volumes
+  ```
+
+  这会清除所有：
+
+  - 停止的 Container
+  - 未被任何 Container 所使用的 Network
+  - 未被任何 Container 所使用的 Volume
+  - 无实例的 Image
+  - 无实例的 Build Cache
+
+- 清理 Images
+
+  上一步中可能不会清理 Images，从而在 `docker system df` 中仍然能看到 Images 的空间占用。这一步可以清理这些 Images。
+
+  查看所有的 Image
+
+  ```bash
+  docker images -a
+  ```
+
+  清理指定的 Image
+
+  ```bash
+  docker rmi <IMAGE ID>
+  ```
+
+### 删除残余的配置文件
+
+通常Debian/Ubuntu删除软件包可以用两条命令
+
+```bash
+sudo apt-get remove <package-name>
+sudo apt-get purge <package-name>
+```
+
+remove将会删除软件包，但会保留配置文件．purge会将软件包以及配置文件都删除．
+
+找出系统上哪些软件包留下了残余的配置文件
+
+```bash
+dpkg --list | grep "^rc"
+```
+
+其中第一栏的**rc**表示软件包已经删除（**R**emove），但配置文件（**C**onfig-file）还在. 现在提取这些软件包的名称．
+
+```bash
+dpkg --list | grep "^rc" | cut -d " " -f 3
+```
+
+删除这些软件包
+
+如果你只想删除某个软件包的配置文件，那么可以使用下面的命令
+
+```bash
+sudo dpkg --purge <package-name>
+```
+
+### 删除没有用的deb软件安装包
+
+通常我们用sudo apt-get install 命令安装软件包后，apt-get下载的deb安装包会保留在系统上．所以如果你经常安装软件，那么这些deb安装包会占据大量的空间．这些安装包在**/var/cache/apt/archives**目录下。在软件安装完成后，这些deb安装包就没什么用了。对于硬盘容量有限的服务器来说**apt-get clean**命令可以腾出很多空间。你可以输入下面的命令来查看/var/chace/apt/archives目录下deb安装包的总大小
+
+```bash
+du -sh /var/cache/apt/archives
+```
+
+要删除这些deb包，只需要运行下面两个命令就行了．
+
+```bash
+sudo apt-get clean
+sudo apt-get autoclean
+```
+
+### 删除孤儿软件包
+
+有时候，你用apt-get安装一个软件包时会自动安装其他的依赖．当你删除掉这个软件包时，这些依赖也就没有用处了．这些没有用的依赖包叫做孤儿软件包，可以用下面的命令删除
+
+```bash
+sudo apt-get autoremove
+```
+
+不过apt-get autoremove只会删除经apt-get自动安装的依赖包，而你自己手动安装的依赖包则不会被删除，这时我们可以用deborphan来彻底删除．
+
+```bash
+sudo apt-get install deborphan
+```
+
+列出孤儿软件包
+
+```bash
+deborphan
+```
+
+将它们删除
+
+```bash
+deborphan | xargs sudo apt-get purge -y
+```
