@@ -1,10 +1,18 @@
-更新系统
+---
+title: Docker搭建Wallos
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: Docker搭建Wallos
+---
+
+### 更新系统
 
 ```bash
 apt update -y && apt upgrade -y
 ```
 
-安装必要工具
+### 安装必要工具
 
 ```bash
 apt install wget curl sudo nano git  -y
@@ -12,37 +20,37 @@ apt install wget curl sudo nano git  -y
 
 ### 🐋安装docker，docker-compose并配置
 
-1. 下载docker
+下载docker
 
 ```bash
 wget -qO- get.docker.com | bash
 ```
 
-1. 设置docker开机自启
+设置docker开机自启
 
 ```bash
 systemctl enable docker
 ```
 
-1. 重启docker
+重启docker
 
 ```bash
 systemctl restart docker
 ```
 
-1. 安装docker-compose
+安装docker-compose
 
 ```bash
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 ```
 
-1. docker-compose赋权
+docker-compose赋权
 
 ```bash
 sudo chmod +x /usr/local/bin/docker-compose
 ```
 
-1. 修改时区为上海
+修改时区为上海
 
 ```bash
 sudo timedatectl set-timezone Asia/Shanghai
@@ -50,7 +58,7 @@ sudo timedatectl set-timezone Asia/Shanghai
 
 ### 🫤项目部署
 
-1. 创建存配置文件的目录,然后进入目录下。
+创建存配置文件的目录,然后进入目录下。
 
 ```bash
 mkdir /opt/wallos
