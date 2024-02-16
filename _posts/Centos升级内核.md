@@ -1,3 +1,11 @@
+---
+title: Centos升级内核
+date: 2024-2-15
+categories: VPS
+tags: Linux
+description: Centos升级内核
+---
+
 ```bash
 #导入key
 rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
