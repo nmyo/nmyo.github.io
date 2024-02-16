@@ -1,3 +1,11 @@
+---
+title: Linux使用NTP同步时间
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: Linux使用NTP同步时间
+---
+
 ### 基于 DEB 的系统
 
 1. 要在 Ubuntu、Debian 和 Linux Mint 上安装 NTP 客户端包：
