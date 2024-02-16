@@ -1,3 +1,11 @@
+---
+title: Linux系统警告：Journal has been rotated since unit was started
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: Linux系统警告：Journal has been rotated since unit was started
+---
+
 Linux系统 `systemctl status xxx` 显示：
 Warning: Journal has been rotated since unit was started. Log output is incomplete or unavailable.
 
