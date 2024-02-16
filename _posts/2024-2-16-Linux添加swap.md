@@ -1,3 +1,11 @@
+---
+title: Linux添加swap
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: Linux添加swap
+---
+
 **小内存vps，增加或删除swap分区方法：**
 
 **检查分区：`free -h`**
