@@ -1,3 +1,11 @@
+---
+title: Tcp-Brutal搭建
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: Tcp-Brutal搭建
+---
+
 ### 官方安装脚本
 ```bash
 bash <(curl -fsSL https://tcp.hy2.sh/)
