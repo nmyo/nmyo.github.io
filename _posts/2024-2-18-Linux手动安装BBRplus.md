@@ -1,3 +1,11 @@
+---
+title: Linux手动安装BBRplus
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: Linux手动安装BBRplus,安装其余内核可以用类似方法
+---
+
 ### 设置目录
 
 ```bash
