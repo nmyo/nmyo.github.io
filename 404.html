@@ -1,11 +1,11 @@
-{% raw %}
----
-layout: default
-title: 404 Page
-permentlink: /404.html
----
-
-# 404
-
-很抱歉，这个页面不存在或者被删除了，[点击回到主页](/)
-{% endraw %}
+<!DOCTYPE html>
+<head>
+    <!-- some other meta -->
+    {% if page.url == "/404.html" %}
+        <meta http-equiv="refresh" content="5; url=/">
+    {% endif %}
+    <!-- some other stuff like link or script -->
+</head>
+<body>
+    <!-- the body for default.html -->
+</body>
