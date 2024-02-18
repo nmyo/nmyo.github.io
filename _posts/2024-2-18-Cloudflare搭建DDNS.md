@@ -3,7 +3,7 @@ title: Cloudflare搭建DDNS
 date: 2024-2-16
 categories: VPS
 tags: Linux
-description: Cloudflare搭建DDNS
+description: 有的商家不提供NAT机的DDNS，遂总结出此篇文章，脚本内容可能有所变动
 ---
 
 # Cloudflare搭建DDNS
