@@ -1,4 +1,10 @@
-### 某些程序在个别版本的内核上无法正常运行，这时候就需要安装指定版本的内核
+---
+title: Debian安装指定内核
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: Debian安装指定内核，其余系统类似
+---
 
 #### 通过命令 `grep -e 'menuentry ' -e 'subm' /boot/grub/grub.cfg | awk -F'--' '{print $1}'` 找到需要启动的内核菜单名称
 
