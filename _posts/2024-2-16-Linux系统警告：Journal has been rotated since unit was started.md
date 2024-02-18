@@ -3,7 +3,7 @@ title: Linux系统警告：Journal has been rotated since unit was started
 date: 2024-2-16
 categories: VPS
 tags: Linux
-description: Linux系统警告：Journal has been rotated since unit was started
+description: 我在使用journal查日志时遇到这句警告，不影响使用，但是强迫症迫使我去查了这个情况，并给出了解决方法
 ---
 
 Linux系统 `systemctl status xxx` 显示：
