@@ -3,7 +3,7 @@ title: Linux开启zRAM
 date: 2024-2-16
 categories: VPS
 tags: Linux
-description: Linux开启zRAN，适用于CPU性能过剩，内存过小
+description: 此片文章是在逛论坛时无意看到，觉得很有意思，遂搬运过来
 ---
 
 ### 开启/加载 zRAM 模块
