@@ -1,3 +1,11 @@
+---
+title: Linux开启zRAM
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: Linux开启zRAN，适用于CPU性能过剩，内存过小
+---
+
 ### 开启/加载 zRAM 模块
 
 zRAM 是 Linux 内核的模块，需要使用 `modprobe` 命令加载 zRAM 模块。具体为 `modprobe zram num_devices=1` 
