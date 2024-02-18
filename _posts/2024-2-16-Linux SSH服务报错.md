@@ -3,10 +3,10 @@ title: SSH服务报错
 date: 2024-2-16
 categories: VPS
 tags: Linux,SSH
-description: SSH服务报错
+description: 我在使用SSH服务的时候遇到了一些问题，本文将我遇到的一个问题解决方法记录一下
 ---
 
-**启动SSH服务时，提示如下错误。**
+**启动SSH服务时，提示如下错误**
 
 ```shell
 could not load host key：/etc/ssh/ssh_host_rsa_key
@@ -18,13 +18,13 @@ could not load host key：/etc/ssh/ssh_host_rsa_key
 systemctl restart sshd.service
 ```
 
-**执行如下命令，发现ssh启动失败。**
+**执行如下命令，发现ssh启动失败**
 
 ```shell
 systemctl status sshd.service 
 ```
 
-**系统显示类似如下，确认`/etc/ssh/ssh_host_rsa_key`文件存在问题。**
+**系统显示类似如下，确认`/etc/ssh/ssh_host_rsa_key`文件存在问题**
 
 ```shell
 could not load host key：/etc/ssh/ssh_host_rsa_key
@@ -37,7 +37,7 @@ sshd -t
 ls -al /etc/ssh/ssh_host_rsa_key
 ```
 
-**执行如下命令，系统显示存在乱码，说明文件内容存在问题。**
+**执行如下命令，系统显示存在乱码，说明文件内容存在问题**
 
 ```shell
 cat /etc/ssh_host_rsa_key
