@@ -1,4 +1,12 @@
-# Cloudflare搭建DDNS(脚本版)
+---
+title: Cloudflare搭建DDNS
+date: 2024-2-16
+categories: VPS
+tags: Linux
+description: Cloudflare搭建DDNS
+---
+
+# Cloudflare搭建DDNS
 
 ## 自建DDNS解决动态IP服务器访问问题
 
