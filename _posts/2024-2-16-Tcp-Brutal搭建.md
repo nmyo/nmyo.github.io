@@ -3,7 +3,7 @@ title: Tcp-Brutal搭建
 date: 2024-2-16
 categories: VPS
 tags: Linux
-description: Tcp-Brutal搭建
+description: Tcp-Brutal不推荐使用，数值设置不好只会适得其反
 ---
 
 ### 官方安装脚本
