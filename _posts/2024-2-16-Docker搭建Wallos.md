@@ -2,7 +2,7 @@
 title: Docker搭建Wallos
 date: 2024-2-16
 categories: VPS
-tags: Linux
+tags: Linux,Docker
 description: Docker搭建Wallos
 ---
 
