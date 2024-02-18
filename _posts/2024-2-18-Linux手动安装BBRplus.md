@@ -18,7 +18,7 @@ wget https://slink.ltd/https://github.com/UJX6N/bbrplus-6.x_stable/releases/down
 https://github.com/UJX6N/bbrplus-6.x_stable/releases/download/6.7.4-bbrplus/CentOS-7_Required_kernel-6.7.4-bbrplus.el7.x86_64.rpm
 ```
 
-### AMD64 / IA32（x86_64）
+### AMD64 / x86_64
 
 ```
 #Centos 8
