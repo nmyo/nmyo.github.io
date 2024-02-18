@@ -2,7 +2,7 @@
 title: SSH服务报错
 date: 2024-2-16
 categories: VPS
-tags: Linux
+tags: Linux,SSH
 description: SSH服务报错
 ---
 
