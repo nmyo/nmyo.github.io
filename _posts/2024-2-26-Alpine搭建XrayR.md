@@ -1,3 +1,11 @@
+---
+title: Alpine搭建sing-box
+date: 2024-2-16
+categories: VPS
+tags: Linux，Alpine
+description: Alpine搭建sing-box简易教程，收集自网上
+---
+
 ### 安装依赖项
 
 ```bash
