@@ -1,9 +1,9 @@
 ---
-title: Alpine搭建sing-box
+title: Alpine搭建XrayR
 date: 2024-2-16
 categories: VPS
 tags: Linux，Alpine
-description: Alpine搭建sing-box简易教程，收集自网上
+description: Alpine搭建XrayR简易教程
 ---
 
 ### 安装依赖项
