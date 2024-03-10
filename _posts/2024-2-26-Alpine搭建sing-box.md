@@ -14,7 +14,7 @@ apk add sing-box@testing vim
 ```
 
 ### 设置自启 
-编辑`vim /etc/init.d/singboxtunnel`
+编辑`vim /etc/init.d/singbox`
 
 ```json
 cat > /etc/init.d/singbox <<EOF
